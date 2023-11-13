@@ -1,6 +1,6 @@
 import os
 
-from dagster import Definitions
+from dagster import op, job, Definitions
 from dagster_dbt import DbtCliResource
 
 from .assets import jaffle_shop_dbt_assets
@@ -20,6 +20,6 @@ def run_dbt_models_with_tag(context):
     # Replace 'your_tag' with the specific tag you want to filter by
     context.resources.dbt.run(models='tag:stage')
 
-@job(resource_defs={'dbt': dbt_cli_resource})
+@job(resource_defs={'dbt': DbtCliResource})
 def dbt_run_job():
     run_dbt_models_with_tag()
